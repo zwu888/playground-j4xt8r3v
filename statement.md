@@ -1,19 +1,33 @@
-# Welcome!
-
-This C++ template lets you get started quickly with a simple one-page playground.
-
 ```C++ runnable
 #include <iostream>
 
-using namespace std;
-
-int main() 
+struct mybase
 {
-    cout << "Hello, World!";
-    return 0;
+  int x;
+  
+  template <int RANGE>
+  virtual void print()
+  {
+    std::cout << RANGE + x + 1 << std::endl;
+  }
+};
+
+struct myderived : public mybase
+{
+  template <int RANGE> 
+  void print()
+  {
+    std::cout << RANGE + x + 2 << std::endl;
+  }
+};
+
+int main(int argc, char** argv)
+{
+  mybase* b = new myderived;
+
+  b->x = 1;
+
+  b->print<5>();
+
+  return 0;
 }
-```
-
-# Advanced usage
-
-If you want a more complex example (external libraries, viewers...), use the [Advanced C++ template](https://tech.io/select-repo/598)
